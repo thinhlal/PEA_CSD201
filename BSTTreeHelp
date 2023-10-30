@@ -135,7 +135,6 @@ public class BSTree {
             if (root.left == null && root.right == null) {
                 return null;
             }
-            System.out.println(root.info);
             if (root.left != null && root.right == null) {
                 return root.left;
             } else if (root.left == null && root.right != null) {
