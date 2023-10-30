@@ -148,6 +148,45 @@ public class BSTree {
         }
         return root;
     }
+---------------------------------------------------------------------
+Node findRightMostNode(Node root) {
+        if (root == null) {
+            return null;
+        }
+        Node leftMost = root.right;
+        while (leftMost != null) {
+            leftMost = leftMost.right;
+        }
+        if (leftMost == null) {
+            return root;
+        } else {
+            return leftMost;
+        }
+    }
+
+    Node deleteNode(Node root, Node p) {
+        if (root == null) {
+            return null;
+        }
+        if (p.info.color < root.info.color) {
+            root.left = deleteNode(root.left, p);
+        } else if (p.info.color > root.info.color) {
+            root.right = deleteNode(root.right, p);
+        } else {
+            if(root.left == null && root.right == null){
+                return null;
+            }else if (root.left != null && root.right == null) {
+                return root.left;
+            } else if (root.left == null && root.right != null) {
+                return root.right;
+            }
+            Node leftMostNode = findRightMostNode(root.left);
+            root.info = leftMostNode.info;
+            root.left = deleteNode(root.left, leftMostNode);
+        }
+        return root;
+    }
+---------------------------------------------------------------------
     void delete(Node x) {
         if (isEmpty()) 
             return;
